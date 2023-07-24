@@ -6,14 +6,14 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class Book {
-    @NotBlank(message = "У книги должно быть название")
-    @Size(min = 2, message = "Длина названии книги должна быть длиннее 2х символов")
+    @NotBlank(message = "")
+    @Size(min = 2, message = "")
     private String name;
-    @NotBlank(message = "У книги должен быть автор")
-    @Size(min = 2, message = "Длина имени автора должна быть длиннее 2х символов")
+    @NotBlank(message = "")
+    @Size(min = 2, message = "")
     private String author;
     @NotNull
-    private LocalDate releaseYear;
+    private int releaseYear;
 
     public String getName() {
         return name;
@@ -31,11 +31,11 @@ public class Book {
         this.author = author;
     }
 
-    public LocalDate getReleaseYear() {
+    public int getReleaseYear() {
         return releaseYear;
     }
 
-    public void setReleaseYear(LocalDate releaseYear) {
+    public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
     }
 }

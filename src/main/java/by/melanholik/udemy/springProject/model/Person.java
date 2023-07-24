@@ -5,9 +5,9 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class Person {
-    @NotBlank(message = "Имя не должно быть пустым")
+    @NotBlank(message = "Name could be not NUll")
     private String name;
-    @NotNull(message = "Человек должен иметь день рождения")
+    @NotNull(message = "People must have birthday")
     private LocalDate birthday;
 
     public void setName(String name) {
