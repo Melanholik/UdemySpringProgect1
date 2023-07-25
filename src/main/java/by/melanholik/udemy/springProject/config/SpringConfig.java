@@ -21,7 +21,7 @@ import java.util.Objects;
 
 @Configuration
 @ComponentScan("by.melanholik.udemy.springProject")
-@PropertySource("classpath: dataBase.properties")
+@PropertySource("classpath:dataBase.properties")
 @EnableWebMvc
 public class SpringConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
@@ -68,16 +68,6 @@ public class SpringConfig implements WebMvcConfigurer {
         dataSource.setPassword(environment.getProperty("password_value"));
         return dataSource;
     }
-
-//    @Bean
-//    public DataSource dataSource() {
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName("org.postgresql.Driver");
-//        dataSource.setUrl("jdbc:postgresql://localhost:5432/project1");
-//        dataSource.setUsername("postgres");
-//        dataSource.setPassword("password");
-//        return dataSource;
-//    }
 
     @Bean
     public JdbcTemplate jdbcTemplate() {

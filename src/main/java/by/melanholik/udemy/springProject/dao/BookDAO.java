@@ -7,9 +7,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
-public class BookDAO {
+public class BookDAO implements ObjectDao<Book> {
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -19,6 +20,24 @@ public class BookDAO {
 
     public List<Book> get() {
         return jdbcTemplate.query("SELECT * FROM book", new BeanPropertyRowMapper<>(Book.class));
+    }
+
+    @Override
+    public Optional<Book> getById(int id) {
+        return jdbcTemplate.query("SELECT * FROM book WHERE id = ?", new Object[]{id},
+                new BeanPropertyRowMapper<>(Book.class)).stream().findAny();
+    }
+
+    @Override
+    public void update(Book book) {
+        jdbcTemplate.update("UPDATE book SET name = ?, author = ?, release_year = ? WHERE id = ?", book.getName(),
+                book.getAuthor(), book.getReleaseYear(), book.getId());
+    }
+
+    @Override
+    public void add(Book book) {
+        jdbcTemplate.update("INSERT INTO book(name, author, release_year) VALUES(?, ?, ?)", book.getName(),
+                book.getAuthor(), book.getReleaseYear());
     }
 
 
