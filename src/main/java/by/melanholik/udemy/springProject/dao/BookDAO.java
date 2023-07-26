@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class BookDAO implements ObjectDao<Book> {
+public class BookDAO implements ObjectDAO<Book> {
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -38,6 +38,11 @@ public class BookDAO implements ObjectDao<Book> {
     public void add(Book book) {
         jdbcTemplate.update("INSERT INTO book(name, author, release_year) VALUES(?, ?, ?)", book.getName(),
                 book.getAuthor(), book.getReleaseYear());
+    }
+
+    @Override
+    public void deleteById(int id) {
+        jdbcTemplate.update("DELETE FROM book WHERE id = ?", id);
     }
 
 
