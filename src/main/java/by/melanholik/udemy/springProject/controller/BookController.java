@@ -1,8 +1,10 @@
 package by.melanholik.udemy.springProject.controller;
 
 
+import by.melanholik.udemy.springProject.dao.BookPersonDAO;
 import by.melanholik.udemy.springProject.dao.ObjectDAO;
 import by.melanholik.udemy.springProject.model.Book;
+import by.melanholik.udemy.springProject.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +16,14 @@ import java.util.Optional;
 @RequestMapping("/books")
 public class BookController {
     private final ObjectDAO<Book> bookDAO;
+    private final BookPersonDAO bookPersonDAO;
+    private final ObjectDAO<Person> personDAO;
 
     @Autowired
-    public BookController(ObjectDAO<Book> bookDAO) {
+    public BookController(ObjectDAO<Book> bookDAO, BookPersonDAO bookPersonDAO, ObjectDAO<Person> personDAO) {
         this.bookDAO = bookDAO;
+        this.bookPersonDAO = bookPersonDAO;
+        this.personDAO = personDAO;
     }
 
     @GetMapping()
@@ -54,6 +60,14 @@ public class BookController {
     public String getById(@PathVariable int id, Model model) {
         Optional<Book> book = bookDAO.getById(id);
         model.addAttribute("book", book.get());
+        Optional<Person> person = bookPersonDAO.getPersonByBookId(id);
+        if (person.isPresent()) {
+            model.addAttribute("isTaken", true);
+            model.addAttribute("person", person.get());
+        } else {
+            model.addAttribute("isTaken", false);
+            model.addAttribute("people", personDAO.get());
+        }
         return "/book/book";
     }
 

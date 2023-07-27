@@ -1,5 +1,6 @@
 package by.melanholik.udemy.springProject.controller;
 
+import by.melanholik.udemy.springProject.dao.BookPersonDAO;
 import by.melanholik.udemy.springProject.dao.ObjectDAO;
 import by.melanholik.udemy.springProject.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/people")
 public class PersonController {
     private final ObjectDAO<Person> personDao;
+    private final BookPersonDAO bookPersonDAO;
 
     @Autowired
-    public PersonController(ObjectDAO<Person> personDao) {
+    public PersonController(ObjectDAO<Person> personDao, BookPersonDAO personDAO) {
         this.personDao = personDao;
+        this.bookPersonDAO = personDAO;
     }
 
     @GetMapping()
@@ -37,6 +40,7 @@ public class PersonController {
     @GetMapping("/{id}")
     private String getById(@PathVariable int id, Model model) {
         model.addAttribute("person", personDao.getById(id).get());
+        model.addAttribute("books", bookPersonDAO.getListBooksByPersonId(id));
         return "/person/person";
     }
 

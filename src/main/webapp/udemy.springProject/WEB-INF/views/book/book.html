@@ -10,6 +10,21 @@
 <body>
 <label th:text="${book.getName()} + ', ' + ${book.getAuthor()} + ', ' + ${book.getReleaseYear} ">Book</label>
 <hr>
+<form th:if="${isTaken}" th:method="DELETE" th:action="@{'/bookPerson/book/' + ${book.getId()}}">
+    <label th:text="'Книга сейчас у: ' + ${person.getName()}">Who taken</label>
+    <br>
+    <input type="submit" value="Освободить Книгу">
+</form>
+<form th:if="${isTaken == false}" th:method="PATCH" th:action="@{'/bookPerson/' + ${book.getId()}}">
+    <label>Эта книга свободна. Кому ее назначить?</label>
+    <br>
+    <label for="person">Выберете человека: </label>
+    <select name="personId" id="person">
+        <option th:each="person:${people}" th:value="${person.getId()}" th:text="${person.getName()}"></option>
+    </select>
+    <input type="submit" value="Назначить книгу">
+</form>
+<hr>
 <form th:method="GET" th:action="@{'/books/' + ${book.getId()} + '/edit'}">
     <input type="submit" value="Редактировать"/>
 </form>
