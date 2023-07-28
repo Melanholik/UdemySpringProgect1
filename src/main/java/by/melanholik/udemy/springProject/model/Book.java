@@ -6,13 +6,13 @@ import javax.validation.constraints.Size;
 
 public class Book {
     private int id;
-    @NotBlank(message = "Поле 'name' не должно быть пустым")
-    @Size(min = 2, message = "Поле 'name' должно содержать не менее 2 символов")
+    @NotBlank(message = "The 'name' field cannot be empty")
+    @Size(min = 2, message = "The 'name' field must contain at least 2 characters")
     private String name;
-    @NotBlank(message = "Поле 'author' не должно быть пустым")
-    @Size(min = 2, message = "Поле 'author' должно содержать не менее 2 символов")
+    @NotBlank(message = "The 'author' field cannot be empty")
+    @Size(min = 2, message = "The 'author' field must contain at least 2 characters")
     private String author;
-    @NotNull(message = "Поле 'releaseYear' не должно быть пустым")
+    @NotNull(message = "The 'releaseYear' field cannot be empty")
     private int releaseYear;
 
     public int getId() {

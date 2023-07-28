@@ -43,4 +43,9 @@ public class PersonDAO implements ObjectDAO<Person> {
     public void deleteById(int id) {
         jdbcTemplate.update("DELETE FROM person WHERE id = ?", id);
     }
+
+    public Optional<Person> getByName(String name) {
+        return jdbcTemplate.query("SELECT * FROM person WHERE name = ?", new Object[]{name},
+                new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
+    }
 }

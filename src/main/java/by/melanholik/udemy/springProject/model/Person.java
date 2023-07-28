@@ -2,11 +2,13 @@ package by.melanholik.udemy.springProject.model;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class Person {
 
     private int id;
-    @NotBlank(message = "Name could be not NUll")
+    @NotBlank(message = "The 'name' field cannot be empty")
+    @Size(min = 2, message = "The 'name' field must contain at least 2 characters")
     private String name;
     @NotNull(message = "People must have birthday")
     private int birthdayYear;
